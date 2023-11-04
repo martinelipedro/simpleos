@@ -1,11 +1,4 @@
-;
-; interrupt.s -- Contains interrupt service routine wrappers.
-;                Based on Bran's kernel development tutorials.
-;                Rewritten for JamesM's kernel development tutorials.
 
-; This macro creates a stub for an ISR which does NOT pass it's own
-; error code (adds a dummy errcode byte).
-%macro ISR_NOERRCODE 1
   global isr%1
   isr%1:
     cli                         ; Disable interrupts firstly.
@@ -60,9 +53,7 @@ ISR_NOERRCODE 31
 ; In isr.c
 extern isr_handler
 
-; This is our common ISR stub. It saves the processor state, sets
-; up for kernel mode segments, calls the C-level fault handler,
-; and finally restores the stack frame.
+
 isr_common_stub:
     pusha                    ; Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
 
