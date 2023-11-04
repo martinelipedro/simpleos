@@ -17,13 +17,25 @@ void vga_clear(void)
     {
         vga_buffer[i] = 0;
     }
+    current_row = 0;
+    current_column = 0;
 }
 
 void vga_putc(char c)
 {
-    const uint16_t index = (VGA_COLS * current_row) + current_column;
-    vga_buffer[index] = (((uint16_t)current_color << 8) | c);
-    current_column++;
+    switch (c)
+    {
+    case '\n':
+        current_row++;
+        current_column = 0;
+        break;
+
+    default:
+        const uint16_t index = (VGA_COLS * current_row) + current_column;
+        vga_buffer[index] = (((uint16_t)current_color << 8) | c);
+        current_column++;
+        break;
+    }
 }
 
 void vga_puts(const char *string)
