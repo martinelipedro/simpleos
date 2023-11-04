@@ -7,8 +7,7 @@ void kmain()
     const char *string = "Hello, World!";
 
     vga_init();
-    vga_putc('H');
-    vga_putc('e');
+    vga_puts(string);
 
     while (1)
         ;

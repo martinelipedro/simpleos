@@ -25,3 +25,11 @@ void vga_putc(char c)
     vga_buffer[index] = (((uint16_t)current_color << 8) | c);
     current_column++;
 }
+
+void vga_puts(const char *string)
+{
+    for (uint16_t i = 0; string[i] != '\0'; ++i)
+    {
+        vga_putc(string[i]);
+    }
+}
