@@ -23,13 +23,15 @@ void init_gdt(void)
 
 static void gdt_set_entry(uint32_t index, uint32_t base, uint32_t limit, uint8_t access, uint8_t granularity)
 {
-    gdt_entries[index].base_low = (base & 0xFFFF);
-    gdt_entries[index].base_middle = (base >> 16) & 0xFF;
-    gdt_entries[index].base_high = (base >> 24) & 0xFF;
+    gdt_entry_T *entry = &gdt_entries[index];
 
-    gdt_entries[index].limit_low = (limit & 0xFFFF);
-    gdt_entries[index].granularity = ((limit >> 16) & 0x0F);
+    entry->base_low = (base & 0xFFFF);
+    entry->base_middle = (base >> 16) & 0xFF;
+    entry->base_high = (base >> 24) & 0xFF;
 
-    gdt_entries[index].granularity |= granularity & 0xF0;
-    gdt_entries[index].access = access;
+    entry->limit_low = (limit & 0xFFFF);
+    entry->granularity = ((limit >> 16) & 0x0F);
+
+    entry->granularity |= granularity & 0xF0;
+    entry->access = access;
 }

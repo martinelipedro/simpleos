@@ -1,5 +1,7 @@
 [global gdt_flush]
+[global idt_flush]
 [extern gdt_pointer]
+[extern idt_pointer]
 
 gdt_flush:
     lgdt [gdt_pointer]
@@ -13,3 +15,7 @@ gdt_flush:
  
 flush2:
     ret
+
+idt_flush:
+    lidt [idt_pointer]
+ret
