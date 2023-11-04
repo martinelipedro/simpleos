@@ -7,12 +7,8 @@ void kmain()
     const char *string = "Hello, World!";
 
     vga_init();
-
-    for (uint8_t i = 0; string[i] != '\0'; ++i)
-    {
-        video_memory[i * 2] = string[i];
-        video_memory[i * 2 + 1] = 0xF;
-    }
+    vga_putc('H');
+    vga_putc('e');
 
     while (1)
         ;
