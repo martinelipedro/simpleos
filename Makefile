@@ -18,7 +18,7 @@ clean:
 	rm -rf $(OBJECTS)
 
 run: kernel-c
-	$(QEMU) -kernel ./kernel
+	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off
 
 kernel: $(OBJECTS)
 	$(LD) $(LDFLAGS) -T linker.ld $^ -o $@ -lgcc

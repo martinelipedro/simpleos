@@ -17,8 +17,9 @@ typedef struct GDT_ENTRY_STRUCT gdt_entry_T;
 
 struct GDT_POINTER_STRUCT
 {
-    uint16_t limit; // Limit address of the table
-    uint32_t base;  // Base address of the table
+    uint16_t limit;
+    uint32_t base;
+
 } __attribute__((packed));
 typedef struct GDT_POINTER_STRUCT gdt_pointer_T;
 

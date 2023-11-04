@@ -1,13 +1,15 @@
-[global load_gdt]
+[global gdt_flush]
+[extern gdt_pointer]
 
-gdtr:
-    dw 0 ; Limit
-    dd 0 ; Base
-
-load_gdt:
-    mov ax, [esp + 4]   ; ax now contains the limit
-    mov [gdtr], ax      ; gdtr first dword now has the limit
-    mov eax, [esp + 8]  ; eax now contains the base
-    mov [gdtr + 2], eax ; gdtr double-dword now has the base
-    lgdt [gdtr]
-ret
+gdt_flush:
+    lgdt [gdt_pointer]
+    mov ax, 0x10
+    mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	mov ss, ax
+    jmp 0x08:flush2
+ 
+flush2:
+    ret
