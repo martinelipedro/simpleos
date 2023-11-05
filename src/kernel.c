@@ -16,6 +16,5 @@ void kmain()
     asm volatile("int $0x3");
     vga_puts(string);
 
-    while (1)
-        ;
+    while (1);
 }
