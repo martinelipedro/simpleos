@@ -49,6 +49,23 @@ void init_idt(void)
 
     remap_pic();
 
+    idt_set_entry(32, (uint32_t)irq0, 0x8E);
+    idt_set_entry(33, (uint32_t)irq1, 0x8E);
+    idt_set_entry(34, (uint32_t)irq2, 0x8E);
+    idt_set_entry(35, (uint32_t)irq3, 0x8E);
+    idt_set_entry(36, (uint32_t)irq4, 0x8E);
+    idt_set_entry(37, (uint32_t)irq5, 0x8E);
+    idt_set_entry(38, (uint32_t)irq6, 0x8E);
+    idt_set_entry(39, (uint32_t)irq7, 0x8E);
+    idt_set_entry(40, (uint32_t)irq8, 0x8E);
+    idt_set_entry(41, (uint32_t)irq9, 0x8E);
+    idt_set_entry(42, (uint32_t)irq10, 0x8E);
+    idt_set_entry(43, (uint32_t)irq11, 0x8E);
+    idt_set_entry(44, (uint32_t)irq12, 0x8E);
+    idt_set_entry(45, (uint32_t)irq13, 0x8E);
+    idt_set_entry(46, (uint32_t)irq14, 0x8E);
+    idt_set_entry(47, (uint32_t)irq15, 0x8E);
+
     idt_flush();
 }
 

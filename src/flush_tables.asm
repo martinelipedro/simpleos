@@ -18,4 +18,5 @@ flush2:
 
 idt_flush:
     lidt [idt_pointer]
+    sti
 ret
