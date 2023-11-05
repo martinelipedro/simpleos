@@ -8,7 +8,6 @@ void kmain()
     init_gdt();
     init_idt();
 
-    // uint8_t *video_memory = (uint8_t *)0xb8000;
     const char *string = "Hello, World!";
 
     vga_init();

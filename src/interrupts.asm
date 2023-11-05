@@ -1,4 +1,4 @@
-
+%macro ISR_NOERRCODE 1
   global isr%1
   isr%1:
     cli                         ; Disable interrupts firstly.
