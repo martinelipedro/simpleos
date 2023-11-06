@@ -20,15 +20,15 @@
 #define IRQ14 46
 #define IRQ15 47
 
-typedef struct registers
+typedef struct INTERRUPT_REGISTER_STRUCT
 {
     uint32_t ds;                                     // Data segment selector
     uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax; // Pushed by pusha.
     uint32_t int_no, err_code;                       // Interrupt number and error code (if applicable)
     uint32_t eip, cs, eflags, useresp, ss;           // Pushed by the processor automatically.
-} registers_T;
+} int_registers_T;
 
-typedef void (*isr_T)(registers_T);
+typedef void (*isr_T)(int_registers_T);
 void register_interrupt_handler(uint8_t index, isr_T handler);
 
 #endif

@@ -4,32 +4,19 @@
 #include "idt.h"
 #include "isr.h"
 #include "util.h"
-
-void keyboard_callback(registers_T regs);
-
-int tick = 0;
+#include "keyboard.h"
 
 void kmain()
 {
     init_gdt();
-
     init_idt();
-    register_interrupt_handler(IRQ1, keyboard_callback);
-
-    const char *string = "Hello, World!";
+    init_keyboard();
 
     vga_init();
-    vga_puts(string);
+    vga_puts("Hello, World!");
 
     asm volatile("int $0x3");
-    vga_puts(string);
 
     while (1)
         ;
-}
-
-void keyboard_callback(registers_T regs)
-{
-    uint8_t scancode = inb(0x60);
-    vga_puts("Key Pressed");
 }
