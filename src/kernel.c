@@ -1,10 +1,10 @@
 #include <stdint.h>
-#include "vga.h"
-#include "gdt.h"
-#include "idt.h"
-#include "isr.h"
+#include "video/vga.h"
+#include "descriptor_tables/gdt.h"
+#include "descriptor_tables/idt.h"
+#include "interrupts/isr.h"
 #include "util.h"
-#include "keyboard.h"
+#include "drivers/keyboard.h"
 
 void kmain()
 {
@@ -17,6 +17,5 @@ void kmain()
 
     asm volatile("int $0x3");
 
-    while (1)
-        ;
+    while (1);
 }

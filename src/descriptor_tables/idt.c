@@ -1,6 +1,6 @@
 #include "idt.h"
 
-#include "util.h"
+#include "../util.h"
 
 idt_entry_T idt_entries[256];
 idt_pointer_T idt_pointer;

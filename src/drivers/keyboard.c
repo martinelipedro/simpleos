@@ -1,9 +1,9 @@
 #include "keyboard.h"
 
 #include <stdint.h>
-#include "vga.h"
-#include "isr.h"
-#include "util.h"
+#include "../video/vga.h"
+#include "../interrupts/isr.h"
+#include "../util.h"
 
 static void keyboard_callback(int_registers_T regs);
 

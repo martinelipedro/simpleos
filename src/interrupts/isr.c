@@ -1,8 +1,8 @@
 #include "isr.h"
 
-#include "vga.h"
+#include "../video/vga.h"
 
-#include "util.h"
+#include "../util.h"
 #include <stdint.h>
 
 static isr_T interrupt_handlers[256];
