@@ -2,3 +2,6 @@ kernel.iso
 kernel
 *.o
 *.txt
+*.iso
+isodir
+.vscode
