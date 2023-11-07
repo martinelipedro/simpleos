@@ -45,3 +45,24 @@ void vga_puts(const char *string)
         vga_putc(string[i]);
     }
 }
+
+static char hexadecimal_index[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+void vga_puth(uint8_t hex)
+{
+    vga_puts("0x");
+    vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
+    vga_putc(hexadecimal_index[(hex & 0x0F)]);
+}
+
+void vga_puth32(uint32_t hex)
+{
+    vga_puts("0x");
+    vga_putc(hexadecimal_index[(hex & 0xF0000000) >> 28]);
+    vga_putc(hexadecimal_index[(hex & 0xF000000) >> 24]);
+    vga_putc(hexadecimal_index[(hex & 0xF00000) >> 20]);
+    vga_putc(hexadecimal_index[(hex & 0xF0000) >> 16]);
+    vga_putc(hexadecimal_index[(hex & 0xF000) >> 12]);
+    vga_putc(hexadecimal_index[(hex & 0xF00) >> 8]);
+    vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
+    vga_putc(hexadecimal_index[(hex & 0x0F)]);
+}
