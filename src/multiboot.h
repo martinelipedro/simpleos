@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+#define MBOOT_MAGIC 0x1badb002
+#define CHECKFLAG(flag, bit) (flag >> bit & 0x1)
+
 struct MULTIBOOT_HEADER_STRUCT
 {
     uint32_t flags;

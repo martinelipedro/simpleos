@@ -9,14 +9,19 @@
 
 static void panic(const char *error_message);
 
-void kmain(mboot_header_T *info)
+void kmain(mboot_header_T *info, uint32_t magic)
 {
     init_gdt();
     init_idt();
     init_keyboard();
 
     vga_init();
-    if (!(info->flags >> 6 & 0x1))
+
+    if (magic != 0x1badb002)
+    {
+        panic("Invalid multiboot magic!");
+    }
+    if (!CHECKFLAG(info->flags, 6))
     {
         panic("Invalid multiboot info provided!");
     }
