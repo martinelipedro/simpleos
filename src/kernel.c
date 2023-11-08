@@ -21,8 +21,6 @@ void kmain(mboot_header_T *info)
         panic("Invalid multiboot info provided!");
     }
 
-    // vga_puth32(info->boot_device);
-
     while (1)
         ;
 }
