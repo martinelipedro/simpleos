@@ -66,3 +66,24 @@ void vga_puth32(uint32_t hex)
     vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
     vga_putc(hexadecimal_index[(hex & 0x0F)]);
 }
+
+void vga_puth64(uint64_t hex)
+{
+    vga_puts("0x");
+    vga_putc(hexadecimal_index[(hex & 0xF000000000000000) >> 60]);
+    vga_putc(hexadecimal_index[(hex & 0xF00000000000000) >> 56]);
+    vga_putc(hexadecimal_index[(hex & 0xF0000000000000) >> 52]);
+    vga_putc(hexadecimal_index[(hex & 0xF000000000000) >> 48]);
+    vga_putc(hexadecimal_index[(hex & 0xF00000000000) >> 44]);
+    vga_putc(hexadecimal_index[(hex & 0xF0000000000) >> 40]);
+    vga_putc(hexadecimal_index[(hex & 0xF000000000) >> 36]);
+    vga_putc(hexadecimal_index[(hex & 0xF00000000) >> 32]);
+    vga_putc(hexadecimal_index[(hex & 0xF0000000) >> 28]);
+    vga_putc(hexadecimal_index[(hex & 0xF000000) >> 24]);
+    vga_putc(hexadecimal_index[(hex & 0xF00000) >> 20]);
+    vga_putc(hexadecimal_index[(hex & 0xF0000) >> 16]);
+    vga_putc(hexadecimal_index[(hex & 0xF000) >> 12]);
+    vga_putc(hexadecimal_index[(hex & 0xF00) >> 8]);
+    vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
+    vga_putc(hexadecimal_index[(hex & 0x0F)]);
+}

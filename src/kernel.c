@@ -6,6 +6,7 @@
 #include "util.h"
 #include "drivers/keyboard.h"
 #include "multiboot.h"
+#include "mem/pmm.h"
 
 static void panic(const char *error_message);
 
@@ -25,6 +26,17 @@ void kmain(mboot_header_T *info, uint32_t magic)
     {
         panic("Invalid multiboot info provided!");
     }
+
+    // In Kbytes
+    uint32_t mem_size = 40000;
+
+    pmm_init(mem_size, (uint32_t *)(0xFFFF * 512));
+
+    uint32_t region = 0x1000;
+    pmm_init_region(region, 4096);
+    vga_puth32((uint32_t)pmm_alloc_block());
+    vga_puth32((uint32_t)pmm_alloc_block());
+    vga_puth32((uint32_t)pmm_alloc_block());
 
     while (1)
         ;

@@ -12,5 +12,6 @@ void vga_putc(char c);
 void vga_puts(const char *string);
 void vga_puth(uint8_t hex);
 void vga_puth32(uint32_t hex);
+void vga_puth64(uint64_t hex);
 
 #endif
