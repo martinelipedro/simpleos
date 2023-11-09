@@ -1,6 +1,7 @@
 #include "pmm.h"
 
 #include "../string.h"
+#include "../video/vga.h"
 
 static uint32_t pmm_memory_size = 0;
 static uint32_t pmm_used_blocks = 0;
@@ -43,6 +44,10 @@ int pmm_mmap_get_first_free()
 
 void pmm_init(uint32_t mem_size, uint32_t *bitmap)
 {
+    vga_puts("Initialising physical memory with: ");
+    vga_puth32(mem_size);
+    vga_puts(" Kb");
+
     pmm_memory_size = mem_size;
     pmm_memory_map = bitmap;
     pmm_max_blocks = mem_size * 1024;
@@ -50,8 +55,6 @@ void pmm_init(uint32_t mem_size, uint32_t *bitmap)
 
     memset(pmm_memory_map, 0xF, pmm_max_blocks / PMM_BLOCKS_PER_BYTE);
 }
-
-#include "../video/vga.h"
 
 void pmm_init_region(uint32_t base_addr, uint32_t size)
 {
@@ -103,4 +106,21 @@ void pmm_free_block(void *paddr)
 
     pmm_mmap_unset(block_frame);
     pmm_used_blocks--;
+}
+
+void pmm_init_regions(mboot_mmap_T *mmap)
+{
+    for (uint8_t i = 0; i < 15; ++i)
+    {
+        // Sanity Check: Mark it Reserved
+        if (mmap[i].type > 4)
+            mmap[i].type = 1;
+
+        // No more entries
+        if (i > 0 && mmap[i].base_low == 0)
+            break;
+
+        if (mmap[i].type == 1)
+            pmm_init_region(mmap[i].base_low, mmap[i].size_low);
+    }
 }

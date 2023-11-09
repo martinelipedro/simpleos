@@ -38,8 +38,10 @@ typedef struct MULTIBOOT_HEADER_STRUCT mboot_header_T;
 struct MULTIBOOT_MEMORY_MAP_STRUCT
 {
     uint32_t size;
-    uint64_t base_addr;
-    uint64_t length;
+    uint32_t base_low;
+    uint32_t base_high;
+    uint32_t size_low;
+    uint32_t size_high;
     uint32_t type;
 
 } __attribute__((packed));

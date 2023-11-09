@@ -2,6 +2,7 @@
 #define SIMPLEOS_PMM_H
 
 #include <stdint.h>
+#include "../multiboot.h"
 
 // Each bit
 #define PMM_BLOCKS_PER_BYTE 8
@@ -22,6 +23,7 @@ int pmm_mmap_test(int bit);
 int pmm_mmap_get_first_free();
 
 void pmm_init(uint32_t mem_size, uint32_t *bitmap);
+void pmm_init_regions(mboot_mmap_T *mmap);
 void pmm_init_region(uint32_t base_addr, uint32_t size);
 void pmm_deinit_region(uint32_t base_addr, uint32_t size);
 

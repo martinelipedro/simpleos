@@ -10,6 +10,9 @@
 
 static void panic(const char *error_message);
 
+// In KBytes
+static uint32_t memory_size = 40000;
+
 void kmain(mboot_header_T *info, uint32_t magic)
 {
     init_gdt();
@@ -27,24 +30,17 @@ void kmain(mboot_header_T *info, uint32_t magic)
         panic("Invalid multiboot info provided!");
     }
 
-    // In Kbytes
-    uint32_t mem_size = 40000;
+    pmm_init(memory_size, (uint32_t *)(0xFFFFF * 512));
+    pmm_init_regions((mboot_mmap_T *)info->mmap_addr);
 
-    pmm_init(mem_size, (uint32_t *)(0xFFFF * 512));
-
-    uint32_t region = 0x1000;
-    pmm_init_region(region, 4096);
-    vga_puth32((uint32_t)pmm_alloc_block());
-    vga_puth32((uint32_t)pmm_alloc_block());
+    vga_putc('\n');
     vga_puth32((uint32_t)pmm_alloc_block());
 
-    while (1)
-        ;
+    while (1);
 }
 
 static void panic(const char *error_message)
 {
     vga_puts(error_message);
-    while (1)
-        ;
+    while (1);
 }

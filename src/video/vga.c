@@ -52,6 +52,7 @@ void vga_puth(uint8_t hex)
     vga_puts("0x");
     vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
     vga_putc(hexadecimal_index[(hex & 0x0F)]);
+    vga_putc('\n');
 }
 
 void vga_puth32(uint32_t hex)
@@ -86,4 +87,5 @@ void vga_puth64(uint64_t hex)
     vga_putc(hexadecimal_index[(hex & 0xF00) >> 8]);
     vga_putc(hexadecimal_index[(hex & 0xF0) >> 4]);
     vga_putc(hexadecimal_index[(hex & 0x0F)]);
+    vga_putc('\n');
 }
