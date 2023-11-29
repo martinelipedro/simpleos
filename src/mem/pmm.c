@@ -23,6 +23,8 @@ int pmm_mmap_test(int bit)
     return pmm_memory_map[bit / PMM_TOTAL_ENTRIES] & (1 << (bit % PMM_TOTAL_ENTRIES));
 }
 
+#include "../video/vga.h"
+
 int pmm_mmap_get_first_free()
 {
     for (uint32_t i = 0; i < pmm_max_blocks / 32; ++i)
@@ -35,7 +37,9 @@ int pmm_mmap_get_first_free()
                 if (!(pmm_memory_map[i] & bit))
                 {
                     // bit integer * n of bytes in int * n blocks per byte * bit index;
-                    return i * 4 * PMM_BLOCKS_PER_BYTE + j;
+                    uint32_t value = i * 4 * PMM_BLOCKS_PER_BYTE + j;
+                    vga_puth(j);
+                    return value;
                 }
             }
         }
@@ -123,4 +127,24 @@ void pmm_init_regions(mboot_mmap_T *mmap)
         if (mmap[i].type == 1)
             pmm_init_region(mmap[i].base_low, mmap[i].size_low);
     }
+}
+
+void *pmm_alloc_blocks(uint32_t size)
+{
+
+    if (pmm_max_blocks - pmm_used_blocks <= size)
+        return 0; // not enough space
+
+    int frame = pmm_mmap_get_first_free(size);
+
+    if (frame == -1)
+        return 0; // not enough space
+
+    for (uint32_t i = 0; i < size; i++)
+        pmm_mmap_set(frame + i);
+
+    uint32_t addr = frame * PMM_BLOCK_SIZE;
+    pmm_used_blocks += size;
+
+    return (void *)addr;
 }

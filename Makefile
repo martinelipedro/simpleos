@@ -20,7 +20,7 @@ clean:
 	rm -rf $(OBJECTS)
 
 run: kernel-c
-	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off -m 4G
+	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off -no-reboot
 
 kernel: $(OBJECTS)
 	$(LD) $(LDFLAGS) -T linker.ld $^ -o $@ -lgcc

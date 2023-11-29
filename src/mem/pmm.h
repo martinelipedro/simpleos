@@ -28,6 +28,10 @@ void pmm_init_region(uint32_t base_addr, uint32_t size);
 void pmm_deinit_region(uint32_t base_addr, uint32_t size);
 
 void *pmm_alloc_block();
+void *pmm_alloc_blocks(uint32_t size);
 void pmm_free_block(void *paddr);
+
+extern void load_pdbr(uint32_t address);
+extern uint32_t get_pdbr(void);
 
 #endif
