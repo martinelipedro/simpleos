@@ -104,7 +104,7 @@ void print_letter(uint8_t scancode)
         vga_puts("ENTER");
         break;
     case 0x1D:
-        vga_puts("LCtrl");
+        // vga_puts("LCtrl");
         break;
     case 0x1E:
         vga_puts("A");
@@ -116,7 +116,7 @@ void print_letter(uint8_t scancode)
         vga_puts("D");
         break;
     case 0x21:
-        vga_puts("F");
+        // vga_puts("F");
         break;
     case 0x22:
         vga_puts("G");
@@ -185,7 +185,7 @@ void print_letter(uint8_t scancode)
         vga_puts("Keypad *");
         break;
     case 0x38:
-        vga_puts("LAlt");
+        // vga_puts("LAlt");
         break;
     case 0x39:
         vga_puts("Spc");

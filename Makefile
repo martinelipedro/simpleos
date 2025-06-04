@@ -5,7 +5,7 @@ SSOURCES = $(shell find ./src -type f -name '*.s')
 OBJECTS = $(CSOURCES:.c=.o)  $(ASMSOURCES:.asm=.o) $(SSOURCES:.s=.o)
 
 QEMU = qemu-system-i386
-PREFIX = i686-elf-
+PREFIX = $(HOME)/opt/cross/bin/i686-elf-
 CC = $(PREFIX)gcc
 LD = $(PREFIX)gcc
 ASM = nasm
