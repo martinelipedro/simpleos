@@ -6,9 +6,13 @@
 #include "util.h"
 #include "drivers/keyboard.h"
 #include "multiboot.h"
+#include "memory/paging.h"
 #include "memory/pmm.h"
 
 static void panic(const char *error_message);
+
+extern uintptr_t _kernel_phys_end[];
+extern uintptr_t _kernel_virt_start[];
 
 void kmain(mboot_header_T *info, uint32_t magic)
 {
@@ -19,7 +23,7 @@ void kmain(mboot_header_T *info, uint32_t magic)
 
     vga_init();
 
-    if (magic != 0x1badb002)
+    if (magic != 0x2badb002)
     {
         panic("Invalid multiboot magic!");
     }
@@ -30,30 +34,6 @@ void kmain(mboot_header_T *info, uint32_t magic)
     }
 
     pmm_init(info);
-    void *test = pmm_alloc_frame();
-
-    vga_puts("--- Starting PMM Test---\n");
-    void *initial_frames[10];
-    for (int i = 0; i < 10; ++i)
-    {
-        initial_frames[i] = pmm_alloc_frame();
-        if (initial_frames[i] == NULL)
-        {
-            vga_puts("Test failed.\n");
-            panic("PMM ERROR");
-        }
-    }
-
-    vga_puts("\nExhaust all remaining memory...");
-    size_t allocs = 0;
-
-    while (pmm_alloc_frame() != NULL)
-    {
-        allocs++;
-    }
-
-    vga_puts("\nMemory exhausted with x allocations: ");
-    vga_puth32(allocs);
 
     while (1)
         ;
