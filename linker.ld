@@ -29,4 +29,6 @@ SECTIONS
         *(COMMON)
         *(.bss)
     }
+
+    _kernel_phys_end = .;
 }

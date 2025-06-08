@@ -4,7 +4,7 @@
     cli                         ; Disable interrupts firstly.
     push byte 0                 ; Push a dummy error code.
     push byte %1                ; Push the interrupt number.
-    jmp isr_common_stub         ; Go to our common handler code.
+    jmp irq_common_stub         ; Go to our common handler code.
 %endmacro
 
 ; This macro creates a stub for an ISR which passes it's own
@@ -14,7 +14,7 @@
   isr%1:
     cli                         ; Disable interrupts.
     push byte %1                ; Push the interrupt number
-    jmp isr_common_stub
+    jmp irq_common_stub
 %endmacro
 
 ISR_NOERRCODE 0
@@ -50,9 +50,7 @@ ISR_NOERRCODE 29
 ISR_NOERRCODE 30
 ISR_NOERRCODE 31
  
-; In isr.c
 extern isr_handler
-
 
 isr_common_stub:
     pusha                    ; Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
@@ -116,8 +114,8 @@ irq_common_stub:
     mov es, ax
     mov fs, ax
     mov gs, ax
-    call irq_handler ; Different than the ISR code
-    pop ebx  ; Different than the ISR code
+    call irq_handler 
+    pop ebx  
     mov ds, bx
     mov es, bx
     mov fs, bx
@@ -127,3 +125,8 @@ irq_common_stub:
     sti
     iret 
 	
+global debug_handler
+debug_handler:
+  cli
+  hlt
+  jmp $

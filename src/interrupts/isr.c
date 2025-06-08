@@ -12,7 +12,7 @@ extern void isr_handler()
     vga_puts("Received Interrupt\n");
 }
 
-extern void irq_handler(int_registers_T regs)
+void irq_handler(int_registers_T regs)
 {
     if (regs.int_no >= 40)
     {

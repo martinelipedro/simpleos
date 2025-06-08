@@ -1,0 +1,71 @@
+# bochsrc - Bochs Configuration File
+
+# ------------------------------------------
+
+# -- General Machine Configuration --
+
+# How much memory to emulate, in megabytes.
+
+# Use 1024 for 1GB, 4096 for 4GB, etc.
+
+megs: 2048
+
+# The CPU model to emulate.
+
+# pentium is a safe bet for a simple 32-bit OS.
+
+cpu: model=pentium
+
+# -- ROM and VGA BIOS --
+
+# These files are required by Bochs and usually come with the installation.
+
+# You might need to adjust the path depending on where Bochs is installed.
+
+# On Linux, they are often in /usr/share/bochs/.
+
+romimage: file=/usr/local/share/bochs/BIOS-bochs-latest
+vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest.bin
+
+# -- Boot Device --
+
+# Tell Bochs what disk image to boot from.
+
+# Uncomment the one that matches your setup.
+
+# Option 1: Booting from a floppy disk image
+
+# floppya: 1_44="kernel", status=inserted
+
+# Option 2: Booting from a hard disk image (common for Grub)
+
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
+ata0-master: type=cdrom, path="kernel.iso", status=inserted
+
+boot: cdrom
+
+# -- Logging and Display --
+
+# Where to send log messages. A log file is useful for diagnostics.
+
+log: bochsout.txt
+
+# What to do if Bochs panics (finds a critical error).
+
+panic: action=ask
+
+# How to handle display errors.
+
+error: action=report
+
+# How to handle general info messages.
+
+info: action=report
+
+# -- Debugging Setup (The Most Important Part) --
+
+# This enables the GDB stub, allowing GDB to connect to Bochs.
+
+# display_library: textmode, options="debug"
+
+# gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0

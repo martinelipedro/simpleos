@@ -4,7 +4,9 @@
 [extern idt_pointer]
 
 gdt_flush:
-    lgdt [gdt_pointer]
+    mov eax, [esp + 4]
+
+    lgdt [eax]
     mov ax, 0x10
     mov ds, ax
 	mov es, ax

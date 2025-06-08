@@ -188,7 +188,7 @@ void print_letter(uint8_t scancode)
         // vga_puts("LAlt");
         break;
     case 0x39:
-        vga_puts("Spc");
+        vga_puts(" ");
         break;
     default:
         break;

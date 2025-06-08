@@ -10,17 +10,20 @@ CC = $(PREFIX)gcc
 LD = $(PREFIX)gcc
 ASM = nasm
 
-CFLAGS = -std=gnu99 -ffreestanding -g
+CFLAGS = -std=gnu99 -ffreestanding -g -Wno-stack-protector
 LDFLAGS = -ffreestanding -nostdlib -g
 ASMFLAGS = -f elf
 
-.PHONY: clean run
+.PHONY: clean run debug
 
 clean:
 	rm -rf $(OBJECTS)
 
 run: kernel-c
-	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off -no-reboot
+	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off -no-reboot -m 4G
+
+debug: kernel-c
+	$(QEMU) -kernel ./kernel -D ./log.txt -monitor stdio -d int -M smm=off -no-reboot -m 2G -s -S
 
 kernel: $(OBJECTS)
 	$(LD) $(LDFLAGS) -T linker.ld $^ -o $@ -lgcc
@@ -30,7 +33,7 @@ kernel-c: kernel
 
 image: kernel-c
 	mkdir -p isodir/boot/grub
-	cp kernel isodir/boot/kernel.elf
+	cp kernel isodir/boot/kernel
 	cp grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o kernel.iso isodir
 
